@@ -12,13 +12,13 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AzureBillingServiceTest {
+public class AzureBillingUsageServiceTest {
 
 	AzureCredential credential;
-	AzureBillingService service;
+	AzureBillingUsageService service;
 	Credential credentialVO;
 	Response azureCredentialResponse;
-	Response azureBillingServiceResponse;
+	Response azureBillingUsageServiceResponse;
 	String accessToken;
 	
 	@Before
@@ -28,33 +28,34 @@ public class AzureBillingServiceTest {
 			.setTenant("472613e3-303b-4ae2-afc6-6a3b2d920675")
 			.setClientSecret("tD0HJEdnovFZ9ytAINVsDZnriebhLZuGtrv46W2y0g8=")
 			.build();
-	
+
 		azureCredentialResponse = credential.invoke();
 		
 		credentialVO = new ObjectMapper()
-		  .readerFor(Credential.class)
-		  .readValue(azureCredentialResponse.readEntity(String.class));
+			  .readerFor(Credential.class)
+			  .readValue(azureCredentialResponse.readEntity(String.class));
 		
-		service = new AzureBillingService.Builder()
+		service = new AzureBillingUsageService.Builder()
+			.setAccessToken(credentialVO.getAccessToken())
 			.setSubscription("08baa038-b64f-49f0-a084-7c22d1c1305c")
-			.setOfferDurableId("MS-AZR-0025P")
-			.setCurrency("TWD")
-			.setLocale("zh-TW")
-			.setRegionInfo("TW")
+			.setReportedStartTime("2017-03-22T00:00:00+00:00")
+			.setReportedEndTime("2017-03-23T00:00:00+00:00")
+			.setAggregationGranularity("Hourly")
+			.setShowDetails(true)
 			.build();
 		
-		azureBillingServiceResponse = service.invokeRateCard(credentialVO.getTokenType(), credentialVO.getAccessToken());
+		azureBillingUsageServiceResponse = service.invoke();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		azureCredentialResponse.close();
-		azureBillingServiceResponse.close();
+		azureBillingUsageServiceResponse.close();
 	}
 
 	@Test
-	public void testRateCard() {
-		assertEquals(200, azureBillingServiceResponse.getStatus());
+	public void testUsage() {
+		assertEquals(200, azureBillingUsageServiceResponse.getStatus());
 	}
 
 }
