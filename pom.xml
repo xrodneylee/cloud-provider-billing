@@ -22,6 +22,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>21.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.guanpu</groupId>
       <artifactId>cloud-provider-authentication</artifactId>
       <version>0.0.1-SNAPSHOT</version>
