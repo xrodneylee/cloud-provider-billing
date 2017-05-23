@@ -8,6 +8,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.common.base.Preconditions;
+
 public class AzureBillingUsageService {
 	private final String ROOT_URL = "https://management.azure.com";
 	private final String SUBSCRIPTION_PATH = "subscriptions";
@@ -59,6 +61,12 @@ public class AzureBillingUsageService {
 		private String accessToken;
 		
 		public AzureBillingUsageService build(){
+			Preconditions.checkNotNull(subscription, "subscription can't be null");
+			Preconditions.checkNotNull(reportedStartTime, "reportedStartTime can't be null");
+			Preconditions.checkNotNull(reportedEndTime, "reportedEndTime can't be null");
+			Preconditions.checkNotNull(aggregationGranularity, "aggregationGranularity can't be null");
+			Preconditions.checkNotNull(showDetails, "showDetails can't be null");
+			Preconditions.checkNotNull(accessToken, "accessToken can't be null");
 			return new AzureBillingUsageService(this);
 		}
 		

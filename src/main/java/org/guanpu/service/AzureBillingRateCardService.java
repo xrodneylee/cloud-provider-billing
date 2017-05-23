@@ -8,6 +8,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.common.base.Preconditions;
+
 public class AzureBillingRateCardService {
 	
 	private final String ROOT_URL = "https://management.azure.com";
@@ -65,6 +67,12 @@ public class AzureBillingRateCardService {
 		private String accessToken;
 		
 		public AzureBillingRateCardService build(){
+			Preconditions.checkNotNull(subscription, "subscription can't be null");
+			Preconditions.checkNotNull(offerDurableId, "offerDurableId can't be null");
+			Preconditions.checkNotNull(currency, "currency can't be null");
+			Preconditions.checkNotNull(locale, "locale can't be null");
+			Preconditions.checkNotNull(regionInfo, "regionInfo can't be null");
+			Preconditions.checkNotNull(accessToken, "accessToken can't be null");
 			return new AzureBillingRateCardService(this);
 		}
 		
