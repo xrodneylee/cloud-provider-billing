@@ -38,8 +38,8 @@ public class AzureBillingUsageServiceTest {
 		service = new AzureBillingUsageService.Builder()
 			.setAccessToken(credentialVO.getAccessToken())
 			.setSubscription("08baa038-b64f-49f0-a084-7c22d1c1305c")
-			.setReportedStartTime("2017-03-22T00:00:00+00:00")
-			.setReportedEndTime("2017-03-23T00:00:00+00:00")
+			.setReportedStartTime("2017-03-22T00:00:00.000+08:00")
+			.setReportedEndTime("2017-03-23T00:00:00.000+08:00")
 			.setAggregationGranularity("Hourly")
 			.setShowDetails(true)
 			.build();
